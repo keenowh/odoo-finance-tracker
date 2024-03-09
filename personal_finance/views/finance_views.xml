@@ -1,0 +1,80 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+
+        <record model="ir.ui.view" id="source_to_end_list">
+            <field name="name">Source to End</field>
+            <field name="model">source.to.end</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="account_source"/>
+                    <field name="account_end"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="finance_entry_list">
+            <field name="name">Finance Entry</field>
+            <field name="model">finance.entries</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="account_source"/>
+                    <field name="account_end"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="personal_finance_action">
+            <field name="name">Personal Finance</field>
+            <field name="res_model">source.to.end</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="personal_finance_action">
+            <field name="name">Finance Entries</field>
+            <field name="res_model">finance.entries</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- server action to the one above -->
+        <!--
+            <record model="ir.actions.server" id="personal_finance.action_server">
+              <field name="name">personal_finance server</field>
+              <field name="model_id" ref="model_personal_finance_personal_finance"/>
+              <field name="state">code</field>
+              <field name="code">
+                action = {
+                  "type": "ir.actions.act_window",
+                  "view_mode": "tree,form",
+                  "res_model": model._name,
+                }
+              </field>
+            </record>
+        -->
+
+        <!-- Top menu item -->
+
+        <menuitem name="Personal Finance" id="personal_finance.menu_root"/>
+
+        <!-- menu categories -->
+
+<!--        <menuitem name="Menu 1" id="personal_finance.menu_1" parent="personal_finance.menu_root"/>-->
+<!--            <menuitem name="Menu 2" id="personal_finance.menu_2" parent="personal_finance.menu_root"/>-->
+
+        <!-- actions -->
+
+        <menuitem name="Source To Menu" id="source_to_end_menu" parent="personal_finance.menu_root"
+                  action="personal_finance_action" groups="base.group_user"/>
+
+        <menuitem name="Finance Entries" id="finance_entry_menu" parent="personal_finance.menu_root"
+                  action="personal_finance_action" groups="base.group_user"/>
+        <!--    <menuitem name="Server to list" id="personal_finance" parent="personal_finance.menu_2"-->
+        <!--              action="personal_finance.action_server"/>-->
+
+    </data>
+</odoo>
